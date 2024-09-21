@@ -4,10 +4,9 @@
     "layer": [
       {
         "data": {
-          "url": "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json",
+          "url": "https://raw.githubusercontent.com/NeevBhandari13/data-vis-2/main/ne_110m.json",
           "format": {
-            "type": "topojson",
-            "feature": "countries1"
+            "type": "json"
           }
         },
         "projection": {
@@ -16,7 +15,7 @@
         "mark": {
           "type": "geoshape",
           "fill": "#dddddd",
-          "stroke": "white"
+          "stroke": "black"
         }
       },
       {
