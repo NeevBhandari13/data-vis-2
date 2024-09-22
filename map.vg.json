@@ -50,7 +50,7 @@
         },
         "mark": {
           "type": "geoshape",
-          "stroke": "#cccccc"
+          "stroke": "grey"
         }
       },
       {
