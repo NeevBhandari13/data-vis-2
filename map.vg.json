@@ -1,7 +1,25 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "F1 Circuits around the World",
     "description": "A map with F1 circuits plotted on top of it",
+    "width": 800,
+    "height": 500,
     "layer": [
+      {
+        "data": {
+          "values": [{}]  
+        },
+        "mark": {
+          "type": "rect",
+          "fill": "#a6cee3"
+        },
+        "encoding": {
+          "x": {"value": 0}, 
+          "x2": {"value": 800}, 
+          "y": {"value": 0}, 
+          "y2": {"value": 500} 
+        }
+      },
       {
         "data": {
           "url": "https://raw.githubusercontent.com/NeevBhandari13/data-vis-2/main/ne_110m.json",
@@ -15,8 +33,8 @@
         },
         "mark": {
           "type": "geoshape",
-          "fill": "#dddddd",
-          "stroke": "black"
+          "fill": "#c2b280",
+          "stroke": "#a6cee3"
         }
       },
       {
@@ -49,7 +67,11 @@
         "encoding": {
           "longitude": {"field": "lng", "type": "quantitative"},
           "latitude": {"field": "lat", "type": "quantitative"},
-          "color": {"field": "country", "type": "nominal"},
+          "color": { "field": "country", 
+          "type": "nominal",
+          "scale": {
+            "domain": ["Australia", "Malaysia", "Bahrain", "Spain", "Turkey"],  
+            "range": ["#FF5733", "#b100cd", "#3357FF", "#FFC300", "#f01e2c"]}},
           "size": {"value": 100},
           "tooltip": [{"field": "name", "type": "nominal"}, {"field": "country", "type": "nominal"}]
         }
