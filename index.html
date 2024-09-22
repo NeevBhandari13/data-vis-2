@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Circuits Map</title>
+    <!-- Vega and Vega-Lite Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+    <h1>F1 Circuits Around the World</h1>
+
+    <div id="vis"></div>
+
+    <script type="text/javascript">
+        vegaEmbed('#vis', 'map.vg.json').then(function(result) {
+        }).catch(console.error);
+    </script>
+</body>
+</html>
