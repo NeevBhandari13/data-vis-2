@@ -1,0 +1,130 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Constructors championship over 2023 season",
+  "data": {
+    "url": "data/constructor_standings.csv"
+  },
+  "transform": [
+    {
+      "lookup": "raceId",
+      "from": {
+        "data": {
+          "url": "data/races.csv"
+        },
+        "key": "raceId",
+        "fields": ["year", "name"]
+      }
+    },
+    {
+      "calculate": "toNumber(datum.year)",
+      "as": "numeric_year"
+    },
+    {
+      "filter": "datum.numeric_year == 2023"
+    },
+    {
+      "lookup": "constructorId",
+      "from": {
+        "data": {
+          "url": "data/constructors.csv"
+        },
+        "key": "constructorId",
+        "fields": ["name"]
+      }
+    },
+    {
+      "calculate": "datum.raceId - 1097",
+      "as": "adjusted_race_number"
+    },
+    {
+      "aggregate": [{
+        "op": "sum",
+        "field": "points",
+        "as": "total_points"
+      }],
+      "groupby": ["constructorId", "name", "adjusted_race_number", "numeric_year"]
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "point": true
+      },
+      "encoding": {
+        "x": {
+          "field": "adjusted_race_number",
+          "type": "quantitative",
+          "title": "Race Number",
+          "scale": {
+            "domain": [1, 23] 
+          },
+          "axis": {
+            "labelAngle": 0,
+            "tickMinStep": 1
+          }
+        },
+        "y": {
+          "field": "total_points",
+          "type": "quantitative",
+          "title": "Points"
+        },
+        "color": {
+          "field": "name",
+          "type": "nominal",
+          "scale": {"scheme": "tableau10"},
+          "title": "Constructor"
+        },
+        "opacity": {
+          "condition": {"selection": "constructor_highlight", "value": 1},
+          "value": 0.2
+        },
+        "tooltip": [
+          {"field": "name", "type": "nominal", "title": "Constructor"},
+          {"field": "adjusted_race_number", "type": "quantitative", "title": "Race Number"},
+          {"field": "total_points", "type": "quantitative", "title": "Points"}
+        ]
+      },
+      "selection": {
+        "constructor_highlight": {
+          "type": "multi",
+          "fields": ["name"],
+          "bind": "legend"
+        }
+      }
+    },
+    {
+      "mark": "rule",
+      "encoding": {
+        "x": {
+          "datum": 15,
+          "type": "quantitative"
+        },
+        "color": {"value": "red"},
+        "size": {"value": 2}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 5
+      },
+      "encoding": {
+        "x": {
+          "datum": 15,
+          "type": "quantitative"
+        },
+        "y": {
+          "datum": 480,
+          "type": "quantitative"
+        },
+        "text": {"value": "Ferrari overtook Aston Martin to claim 3rd place"},
+        "color": {"value": "red"}
+      }
+    }
+  ],
+  "width": 600,
+  "height": 400
+}

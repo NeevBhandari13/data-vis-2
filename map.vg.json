@@ -29,7 +29,7 @@
           }
         },
         "projection": {
-          "type": "mercator"
+          "type": "equalEarth"
         },
         "mark": {
           "type": "geoshape",
@@ -46,11 +46,12 @@
           }
         },
         "projection": {
-          "type": "mercator"
+          "type": "equalEarth"
         },
         "mark": {
           "type": "geoshape",
-          "stroke": "grey"
+          "stroke": "lightgrey",
+          "fill": null
         }
       },
       {
