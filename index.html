@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F1 Circuits Map</title>
+    <title>F1 Circuits Map and 2023 Constructors' Championship</title>
     <!-- Vega and Vega-Lite Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
@@ -12,20 +12,21 @@
 <body>
     <h1>F1 Circuits Around the World</h1>
 
-    <div id="map"></div>
+    <!-- Unique ID for the first visualization -->
+    <div id="f1-map"></div>
 
-    <script type="text/javascript">
-        vegaEmbed('#map', 'map.vg.json').then(function(result) {
-        }).catch(console.error);
-    </script>
-</body>
-<body>
     <h1>2023 Constructors' Championship</h1>
 
-    <div id="line"></div>
+    <!-- Unique ID for the second visualization -->
+    <div id="constructors-chart"></div>
 
     <script type="text/javascript">
-        vegaEmbed('#line', '2023_constructors_championship.vg.json').then(function(result) {
+        // Embed the first visualization (F1 map)
+        vegaEmbed('#f1-map', 'map.vg.json').then(function(result) {
+        }).catch(console.error);
+
+        // Embed the second visualization (2023 constructors chart)
+        vegaEmbed('#constructors-chart', '2023_constructors_championship.vg.json').then(function(result) {
         }).catch(console.error);
     </script>
 </body>
