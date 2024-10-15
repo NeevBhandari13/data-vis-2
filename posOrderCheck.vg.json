@@ -1,0 +1,36 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Check Position Order for Winners (positionOrder == 1)",
+    "description": "A simple table to check positionOrder values where positionOrder equals 1 from results.csv",
+    "data": {
+      "url": "data/results.csv",
+      "format": {
+        "type": "csv",
+        "parse": {"positionOrder": "number"}  
+      }
+    },
+    "transform": [
+      {
+        "filter": "datum.positionOrder == 1"  
+      }
+    ],
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "raceId",
+        "type": "ordinal",
+        "title": "Race ID"
+      },
+      "y": {
+        "field": "positionOrder",
+        "type": "quantitative",
+        "title": "Position Order"
+      },
+      "tooltip": [
+        {"field": "raceId", "type": "ordinal", "title": "Race ID"},
+        {"field": "positionOrder", "type": "quantitative", "title": "Position Order"},
+        {"field": "driverId", "type": "nominal", "title": "Driver ID"}
+      ]
+    }
+  }
+  

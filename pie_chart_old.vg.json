@@ -1,0 +1,62 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "2023 Drivers' Wins",
+    "description": "A pie chart showing the number of wins per driver in the 2023 F1 season",
+    "data": {
+      "url": "data/results.csv",
+      "format": {"type": "csv"}
+    },
+    "transform": [
+      {
+        "lookup": "raceId",
+        "from": {
+          "data": {
+            "url": "data/races.csv",
+            "format": {"type": "csv"}
+          },
+          "key": "raceId",
+          "fields": ["year"]
+        }
+      },
+      {
+        "filter": "datum.year == 2023 && datum.positionOrder == 1"
+      },
+      {
+        "lookup": "driverId",
+        "from": {
+          "data": {
+            "url": "data/drivers.csv",
+            "format": {"type": "csv"}
+          },
+          "key": "driverId",
+          "fields": ["surname"]
+        }
+      },
+      {
+        "aggregate": [{
+          "op": "count",
+          "as": "win_count"
+        }],
+        "groupby": ["surname"]
+      }
+    ],
+    "mark": "arc",
+    "encoding": {
+      "theta": {
+        "field": "win_count",
+        "type": "quantitative",
+        "title": "Wins"
+      },
+      "color": {
+        "field": "surname",
+        "type": "nominal",
+        "title": "Driver"
+      },
+      "tooltip": [
+        {"field": "surname", "type": "nominal", "title": "Driver"},
+        {"field": "win_count", "type": "quantitative", "title": "Wins"}
+      ]
+    },
+    "view": {"stroke": null}
+  }
+  

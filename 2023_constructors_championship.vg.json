@@ -70,14 +70,16 @@
           "title": "Points"
         },
         "color": {
-          "field": "name",
-          "type": "nominal",
-          "scale": {"scheme": "tableau10"},
-          "title": "Constructor"
-        },
-        "opacity": {
-          "condition": {"selection": "constructor_highlight", "value": 1},
-          "value": 0.2
+          "condition": {
+            "test": "datum.name == 'Mercedes' || datum.name == 'Ferrari' || datum.name == 'Red Bull' || datum.name == 'Aston Martin' || datum.name == 'McLaren'",
+            "field": "name",
+            "type": "nominal",
+            "scale": {
+              "domain": ["Mercedes", "Ferrari", "Red Bull", "Aston Martin", "McLaren"],
+              "range": ["#00D2BE", "#DC0000", "#1E41FF", "#A020F0", "#FF8700"]
+            }
+          },
+          "value": "lightgrey"  
         },
         "tooltip": [
           {"field": "name", "type": "nominal", "title": "Constructor"},
@@ -111,6 +113,11 @@
         "baseline": "middle",
         "dx": 5
       },
+      "transform": [
+        {
+          "filter": "datum.adjusted_race_number == 15 && datum.name == 'Ferrari'" 
+        }
+      ],
       "encoding": {
         "x": {
           "datum": 15,

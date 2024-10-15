@@ -1,10 +1,11 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "2023 Drivers' Wins",
-    "description": "A pie chart showing the number of wins per driver in the 2023 F1 season",
+    "title": "Driver Finishes in 2023 Season",
     "data": {
       "url": "data/results.csv",
-      "format": {"type": "csv"}
+      "format": {
+        "type": "csv"
+      }
     },
     "transform": [
       {
@@ -19,7 +20,7 @@
         }
       },
       {
-        "filter": "datum.year == 2023 && datum.positionOrder == 1"
+        "filter": "datum.year == 2023"
       },
       {
         "lookup": "driverId",
@@ -33,30 +34,51 @@
         }
       },
       {
+        "calculate": "datum.positionOrder <= 3 ? datum.positionOrder : 'Other'",
+        "as": "finishPosition"
+      },
+      {
+        "filter": "datum.surname == driver_selection"
+      },
+      {
         "aggregate": [{
           "op": "count",
-          "as": "win_count"
+          "as": "count"
         }],
-        "groupby": ["surname"]
+        "groupby": ["finishPosition"]
+      }
+    ],
+    "params": [
+      {
+        "name": "driver_selection",
+        "value": "Hamilton", 
+        "bind": {
+          "input": "select",
+          "options": ["Hamilton", "Verstappen", "Leclerc", "Russell", "Sainz"],
+          "labels": ["Hamilton", "Verstappen", "Leclerc", "Russell", "Sainz"],
+          "name": "Select Driver: "
+        }
       }
     ],
     "mark": "arc",
     "encoding": {
       "theta": {
-        "field": "win_count",
-        "type": "quantitative",
-        "title": "Wins"
+        "field": "count",
+        "type": "quantitative"
       },
       "color": {
-        "field": "surname",
+        "field": "finishPosition",
         "type": "nominal",
-        "title": "Driver"
+        "scale": {
+          "domain": ["1", "2", "3", "Other"],
+          "range": ["#d4af37", "#C0C0C0", "#CD7F32", "#000000"]
+        },
+        "title": "Finish Position"
       },
       "tooltip": [
-        {"field": "surname", "type": "nominal", "title": "Driver"},
-        {"field": "win_count", "type": "quantitative", "title": "Wins"}
+        {"field": "finishPosition", "type": "nominal", "title": "Position"},
+        {"field": "count", "type": "quantitative", "title": "Count"}
       ]
-    },
-    "view": {"stroke": null}
+    }
   }
   

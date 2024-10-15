@@ -1,67 +1,93 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Driver DNFs in 2023",
-    "description": "A bar chart showing the number of DNFs (Did Not Finish) per driver in the 2023 F1 season",
-    "data": {
-      "url": "data/results.csv",
-      "format": {"type": "csv"}
-    },
-    "transform": [
-      {
-        "lookup": "raceId",
-        "from": {
-          "data": {
-            "url": "data/races.csv",
-            "format": {"type": "csv"}
-          },
-          "key": "raceId",
-          "fields": ["year"]
-        }
-      },
-      {
-        "filter": "datum.year == 2023"  
-      },
-      {
-        "lookup": "driverId",
-        "from": {
-          "data": {
-            "url": "data/drivers.csv",
-            "format": {"type": "csv"}
-          },
-          "key": "driverId",
-          "fields": ["surname"]
-        }
-      },
-      {
-        "filter": "datum.statusId != 1"  
-      },
-      {
-        "aggregate": [
-          {
-            "op": "count",
-            "as": "DNF_count"
-          }
-        ],
-        "groupby": ["surname"]
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Driver DNFs in 2023",
+  "description": "A bar chart showing the number of DNFs (Did Not Finish) per driver in the 2023 F1 season",
+  "data": {
+    "url": "data/results.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "lookup": "raceId",
+      "from": {
+        "data": {
+          "url": "data/races.csv",
+          "format": {"type": "csv"}
+        },
+        "key": "raceId",
+        "fields": ["year"]
       }
-    ],
-    "mark": "bar",
-    "encoding": {
-      "x": {
-        "field": "surname",
-        "type": "nominal",
-        "title": "Driver",
-        "sort": "-y"
-      },
-      "y": {
-        "field": "DNF_count",
-        "type": "quantitative",
-        "title": "Number of DNFs"
-      },
-      "tooltip": [
-        {"field": "surname", "type": "nominal", "title": "Driver"},
-        {"field": "DNF_count", "type": "quantitative", "title": "Number of DNFs"}
-      ]
+    },
+    {
+      "filter": "datum.year == 2023"
+    },
+    {
+      "lookup": "driverId",
+      "from": {
+        "data": {
+          "url": "data/drivers.csv",
+          "format": {"type": "csv"}
+        },
+        "key": "driverId",
+        "fields": ["surname"]
+      }
+    },
+    {
+      "lookup": "constructorId",
+      "from": {
+        "data": {
+          "url": "data/constructors.csv",
+          "format": {"type": "csv"}
+        },
+        "key": "constructorId",
+        "fields": ["name"]
+      }
+    },
+    {
+      "filter": "datum.statusId != 1"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "DNF_count"
+        }
+      ],
+      "groupby": ["surname", "name"]  
+    },
+    {
+      "calculate": "datum.name == 'Mercedes' || datum.name == 'Ferrari' || datum.name == 'Red Bull' || datum.name == 'Aston Martin' || datum.name == 'McLaren' ? datum.name : 'Other'",
+      "as": "team"
     }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "surname",
+      "type": "nominal",
+      "title": "Driver",
+      "sort": "-y"
+    },
+    "y": {
+      "field": "DNF_count",
+      "type": "quantitative",
+      "title": "Number of DNFs"
+    },
+    "color": {
+      "field": "team",
+      "scale": {
+        "domain": ["Mercedes", "Ferrari", "Red Bull", "Aston Martin", "McLaren", "Other"],
+        "range": ["#00D2BE", "#DC0000", "#1E41FF", "#A020F0", "#FF8700", "lightgrey"]
+      },
+      "legend": {
+        "title": "Constructor",
+        "orient": "bottom"
+      }
+    },
+    "tooltip": [
+      {"field": "surname", "type": "nominal", "title": "Driver"},
+      {"field": "DNF_count", "type": "quantitative", "title": "Number of DNFs"},
+      {"field": "name", "type": "nominal", "title": "Constructor"}
+    ]
   }
-  
+}

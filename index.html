@@ -4,45 +4,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F1 Circuits Map and 2023 Constructors' Championship</title>
+    
     <!-- Vega and Vega-Lite Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    
+    <!-- Import pure.css -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    
+    <!-- Custom styles -->
+    <style>
+        /* Import the Formula 1 font */
+        @font-face {
+            font-family: 'Formula1';
+            src: url('fonts/Formula1-Regular.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .page {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Formula1', sans-serif; /* Apply Formula1 font to the first title */
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .vis-container {
+            display: flex;
+            justify-content: center;  /* Center visualizations horizontally */
+            align-items: center;     /* Center visualizations vertically */
+            margin-bottom: 40px;
+        }
+
+        /* Ensure the visualizations fit within the container */
+        .vis-container > div {
+            max-width: 100%;
+            width: 100%;
+            max-height: 600px;
+        }
+
+        .description {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .page {
+                margin: 25px auto;
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Formula 1 2023 Season</h1>
+    <div class="page">
+        <h1>Formula 1 2023 Season</h1>
 
-    <h2>Constructor Wins Through the Season</h2>
+        <h2>Constructor Wins Through the Season</h2>
+        <div id="f1-map" class="vis-container"></div>
 
-    <div id="f1-map"></div>
+        <h2>2023 Constructors' Championship</h2>
+        <div id="constructors-chart" class="vis-container"></div>
 
-    <h2>2023 Constructors' Championship</h2>
+        <h2>Driver Wins Pie Chart</h2>
+        <div id="pie-chart" class="vis-container"></div>
 
-    <div id="constructors-chart"></div>
-
-    <h2>Driver Wins Pie Chart</h2>
-
-    <div id="pie-chart"></div>
-
-    <h2>Driver DNFs</h2>
-
-    <div id="bar-chart"></div>
+        <h2>Driver DNFs</h2>
+        <div id="bar-chart" class="vis-container"></div>
+    </div>
 
     <script type="text/javascript">
         // Embed the first visualization (F1 map)
-        vegaEmbed('#f1-map', 'map.vg.json').then(function(result) {
+        vegaEmbed('#f1-map', 'map.vg.json', {
+            width: 800,
+            height: 500,
+            config: {
+                legend: {
+                    orient: 'bottom',  // Move the legend to the bottom
+                    direction: 'horizontal',  // Place the legend items horizontally
+                    titleFontSize: 12,
+                    labelFontSize: 10,
+                    columns: 3,  // Set number of columns to limit width
+                    labelLimit: 100  // Limit label width
+                }
+            }
+        }).then(function(result) {
         }).catch(console.error);
 
         // Embed the second visualization (2023 constructors chart)
-        vegaEmbed('#constructors-chart', '2023_constructors_championship.vg.json').then(function(result) {
+        vegaEmbed('#constructors-chart', '2023_constructors_championship.vg.json', {
+            width: 800,
+            height: 500,
+            config: {
+                legend: {
+                    orient: 'bottom',
+                    direction: 'horizontal',
+                    titleFontSize: 12,
+                    labelFontSize: 10,
+                    columns: 3,
+                    labelLimit: 100
+                }
+            }
+        }).then(function(result) {
         }).catch(console.error);
 
-        vegaEmbed('#pie-chart', 'pie_chart.vg.json').then(function(result) {
+        // Embed the third visualization (Driver Wins Pie Chart)
+        vegaEmbed('#pie-chart', 'pie_chart.vg.json', {
+            width: 800,
+            height: 500,
+            config: {
+                legend: {
+                    orient: 'bottom',
+                    direction: 'horizontal',
+                    titleFontSize: 12,
+                    labelFontSize: 10,
+                    columns: 3,
+                    labelLimit: 100
+                }
+            }
+        }).then(function(result) {
         }).catch(console.error);
 
-        vegaEmbed('#bar-chart', 'dnf_bar_chart.vg.json').then(function(result) {
+        // Embed the fourth visualization (Driver DNFs Bar Chart)
+        vegaEmbed('#bar-chart', 'dnf_bar_chart.vg.json', {
+            width: 800,
+            height: 500,
+            config: {
+                legend: {
+                    orient: 'bottom',
+                    direction: 'horizontal',
+                    titleFontSize: 12,
+                    labelFontSize: 10,
+                    columns: 3,
+                    labelLimit: 100
+                }
+            }
+        }).then(function(result) {
         }).catch(console.error);
-
     </script>
 </body>
 </html>
