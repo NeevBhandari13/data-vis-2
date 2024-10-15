@@ -23,25 +23,32 @@
 
         body {
             font-family: 'Open Sans', sans-serif;
-            background-color: #f4f4f4;
+            background-color: #FF817E;
         }
 
         .page {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 50px auto;
             padding: 20px;
             background-color: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+            text-align: center;
+            
         }
 
         h1 {
             text-align: center;
             font-family: 'Formula1', sans-serif; /* Apply Formula1 font to the first title */
+            font-size: 48px; /* Larger font size */
+            color: red;
         }
 
         h2 {
             text-align: center;
+            font-family: 'Formula1', sans-serif; /* Apply Formula1 font to the first title */
+            font-size: 24px; /* Larger font size */
+            color: red;
         }
 
         .vis-container {
@@ -54,8 +61,14 @@
         /* Ensure the visualizations fit within the container */
         .vis-container > div {
             max-width: 100%;
-            width: 100%;
+            width: 800px; /* Set width for visualizations */
             max-height: 600px;
+        }
+
+        .vis-short {
+            max-width: 100%;
+            width: 800px; 
+            max-height: 400px; /* Shorter height for pie and bar charts */
         }
 
         .description {
@@ -64,10 +77,52 @@
             text-align: center;
         }
 
+        .text-placeholder {
+            font-size: 1.2em;
+            font-style: italic;
+            margin: 20px 0;
+        }
+
+        .section-bubble {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f8f8; /* Light orange background */
+            border: 1px solid #e0d6c3; /* Slightly darker border */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .description-left, .description-right {
+            font-size: 1.1em;
+            padding: 15px;
+        }
+
+        .description-left p, .description-right p {
+            margin-bottom: 15px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #d3d3d3;
+            margin: 30px 0; /* Add space around the horizontal rule */
+        }
+
         @media only screen and (max-width: 768px) {
             .page {
                 margin: 25px auto;
                 padding: 15px;
+            }
+
+            .vis-container > div {
+                width: 100%;  /* Make visualizations responsive for smaller screens */
+            }
+
+            .vis-short {
+                width: 100%;
+            }
+
+            .description-left, .description-right {
+                text-align: center;
             }
         }
     </style>
@@ -77,18 +132,127 @@
     <div class="page">
         <h1>Formula 1 2023 Season</h1>
 
+        <!-- section 1 -->
+        <div class="section-bubble">
+            <div class="pure-g">
+                <div class="pure-u-1-2">
+                    <div class="description-left">
+                        <p>The <b>2023 F1 Season</b> saw thrilling races across circuits worldwide, with constructors and drivers pushing the limits of their machines and strategies. Every race brought new excitement, with records being broken and teams battling for supremacy.</p>
+                        <p>This dashboard delves deep into the <b>Constructor Wins</b> through the season, highlight the intense competition in the <b>Constructors' Championship</b>, and offer insight into driver performance with a focus on <b>Wins</b> and <b>DNFs (Did Not Finish)</b>.</p>
+                    </div>
+                </div>
+                <div class="pure-u-1-2">
+                    <div class="description-right">
+                        <p>From high-speed circuits to technical tracks, the 2023 F1 calendar tested both drivers and constructors. The race for the championship was fierce, with <b>Red Bull</b>, <b>Ferrari</b>, and <b>Mercedes</b> locking horns, while up-and-coming teams like <b>Aston Martin</b> and <b>McLaren</b> looked to make their mark.</p>
+                        <p>This dashboard provides an interactive exploration of key data points from the season, allowing F1 fans, analysts, and enthusiasts to relive the highlights and explore the details of every race and driver.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
         <h2>Constructor Wins Through the Season</h2>
-        <div id="f1-map" class="vis-container"></div>
 
-        <h2>2023 Constructors' Championship</h2>
-        <div id="constructors-chart" class="vis-container"></div>
+        <div class="section-bubble">
+            <div class="pure-g">
+                <div class="pure-u-1-2">
+                    <div class="description-left">
+                        <p>The <b>2023 Formula 1 season</b> featured a mix of iconic circuits and exciting new additions. High-speed tracks like <b>Monza</b> and <b>Silverstone</b> returned, while street circuits such as <b>Monaco</b> and <b>Singapore</b> challenged drivers with tight corners. This year saw the addition of the <b>Las Vegas</b> night race, bringing the thrill of Formula 1 to the neon streets of the entertainment capital. Another highlight was the return of the <b>Qatar Grand Prix</b>, known for its fast, flowing layout in the desert.</p>
+                    </div>
+                </div>
+                <div class="pure-u-1-2">
+                    <div class="description-right">
+                        <p>In Formula 1, a <b>constructor</b> is the entire team behind the car, responsible for everything from the chassis to strategy. The 2023 season was dominated by <span style="color: blue; font-weight: bold;">Red Bull</span> with stiff competition from <span style="color: red; font-weight: bold;">Ferrari</span>. Each constructor's victories are plotted on the map, offering a visual representation of their performance across the world.</p>
 
-        <h2>Driver Wins Pie Chart</h2>
-        <div id="pie-chart" class="vis-container"></div>
+                        <p>The map below is interactive, with highlighting of different circuits based on the winning team.
 
-        <h2>Driver DNFs</h2>
-        <div id="bar-chart" class="vis-container"></div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+
+
+<div id="f1-map" class="vis-container"></div>
+
+<hr>
+
+<h2>2023 Constructors' Championship</h2>
+
+<div class="section-bubble">
+    <div class="pure-g">
+        <div class="pure-u-1-2">
+            <div class="description-left">
+                <p>Each constructor has two drivers racing over the year to win points for their team and win the coveted constructors' championship. The championship is fiercely competitive, as the performance of both cars is vital to a team's success, ensuring that every driver plays a pivotal role in achieving the team's goals.</p>
+            </div>
+        </div>
+        <div class="pure-u-1-2">
+            <div class="description-right">
+                <p>The 2023 Constructors' Championship was a thrilling contest. While <b>Red Bull</b> dominated, <b>Mercedes</b>, and <b>Ferrari</b> battled hard for second place. Teams like <b>Aston Martin</b> and <b>McLaren</b>, also showcased remarkable progress, fighting tirelessly to be at the top of the mid-table so they can give the big 3 a run for their money in the 2024 season.</p>
+
+                <p>The chart below is interactive, with highlighting of teams' point progressions.
+
+                </p>
+            </div>
+        </div>
     </div>
+</div>
+
+
+<div id="constructors-chart" class="vis-container"></div>
+
+<hr>
+
+<h2>Driver Wins Pie Chart</h2>
+
+<div class="section-bubble">
+    <div class="pure-g">
+        <div class="pure-u-1-2">
+            <div class="description-left">
+                <p>Driver victories are the cornerstone of Formula 1's competitive spirit. Each season, drivers compete fiercely not just for constructor points but also to claim individual wins that cement their legacy in the sport. The pie chart below visually represents the distribution of driver wins for the 2023 season. The <b>dominance</b> of certain drivers is evident, with a few individuals securing multiple victories, while others were able to claim only a few. </p>
+            </div>
+        </div>
+        <div class="pure-u-1-2">
+            <div class="description-right">
+                <p>The chart reveals that a select group of drivers, particularly from <b>Red Bull</b> and <b>Mercedes</b>, led the field with the majority of wins. Drivers from other teams like <b>Ferrari</b> and <b>McLaren</b> also showcased their skill by adding crucial victories to their teams' tally. By examining this chart, we gain insights into which drivers dominated the 2023 season, reflecting the intense battle for supremacy on the track.</p>
+
+                <p>The pie chart below shows the top drivers' finishing positions across the season.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="pie-chart" class="vis-container vis-short"></div>
+
+<hr>
+
+<h2>Driver DNFs</h2>
+
+<div class="section-bubble">
+    <div class="pure-g">
+        <div class="pure-u-1-2">
+            <div class="description-left">
+                <p>DNF, or "Did Not Finish," is a term used when a driver is unable to complete a race for various reasons, including mechanical failures, collisions, or driver errors. In Formula 1, where every point counts, a DNF can significantly impact a driver's position in the championship standings, as well as the constructor’s total score for the season. For drivers, avoiding DNFs is critical to maintaining momentum and securing a strong finish.</p>
+            </div>
+        </div>
+        <div class="pure-u-1-2">
+            <div class="description-right">
+                <p>The 2023 season saw a range of DNFs across the grid, with some drivers experiencing more bad luck than others. While leading teams such as <b>Red Bull</b> and <b>Mercedes</b> managed to keep DNFs to a minimum, others faced more frequent issues. DNFs are a crucial part of the season’s narrative, as they reveal not only the reliability of the cars but also the high-pressure nature of the sport, where a single mistake or technical failure can spell disaster for a race weekend.</p>
+
+                <p>The graph below allows for highlighting based on teams as well as filtering for different races.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="bar-chart" class="vis-container vis-short"></div>
+
+<hr>
+
 
     <script type="text/javascript">
         // Embed the first visualization (F1 map)
@@ -128,7 +292,7 @@
         // Embed the third visualization (Driver Wins Pie Chart)
         vegaEmbed('#pie-chart', 'pie_chart.vg.json', {
             width: 800,
-            height: 500,
+            height: 400,  // Shorter height for pie chart
             config: {
                 legend: {
                     orient: 'bottom',
@@ -145,7 +309,7 @@
         // Embed the fourth visualization (Driver DNFs Bar Chart)
         vegaEmbed('#bar-chart', 'dnf_bar_chart.vg.json', {
             width: 800,
-            height: 500,
+            height: 400,  // Shorter height for bar chart
             config: {
                 legend: {
                     orient: 'bottom',

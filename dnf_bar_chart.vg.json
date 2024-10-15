@@ -1,7 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Driver DNFs in 2023",
-  "description": "A bar chart showing the number of DNFs (Did Not Finish) per driver in the 2023 F1 season",
+  "description": "A bar chart showing the number of DNFs (Did Not Finish) per driver in the 2023 F1 season with a race number slider and constructor highlighting",
   "data": {
     "url": "data/results.csv",
     "format": {"type": "csv"}
@@ -15,7 +14,7 @@
           "format": {"type": "csv"}
         },
         "key": "raceId",
-        "fields": ["year"]
+        "fields": ["year", "round"]
       }
     },
     {
@@ -47,6 +46,9 @@
       "filter": "datum.statusId != 1"
     },
     {
+      "filter": "datum.round <= race_slider"
+    },
+    {
       "aggregate": [
         {
           "op": "count",
@@ -60,6 +62,26 @@
       "as": "team"
     }
   ],
+  "params": [
+    {
+      "name": "race_slider",
+      "value": 22,
+      "bind": {
+        "input": "range",
+        "min": 1,
+        "max": 22,
+        "step": 1,
+        "name": "Race Number: "
+      }
+    }
+  ],
+  "selection": {
+    "constructor_highlight": {
+      "type": "multi",
+      "fields": ["team"],
+      "bind": "legend"
+    }
+  },
   "mark": "bar",
   "encoding": {
     "x": {
@@ -83,6 +105,10 @@
         "title": "Constructor",
         "orient": "bottom"
       }
+    },
+    "opacity": {
+      "condition": {"selection": "constructor_highlight", "value": 1},
+      "value": 0.2
     },
     "tooltip": [
       {"field": "surname", "type": "nominal", "title": "Driver"},

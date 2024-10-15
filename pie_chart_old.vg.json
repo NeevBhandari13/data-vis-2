@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "2023 Drivers' Wins",
+
     "description": "A pie chart showing the number of wins per driver in the 2023 F1 season",
     "data": {
       "url": "data/results.csv",

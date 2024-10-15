@@ -1,7 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "2023 F1 Circuits and Winning Constructors",
-  "description": "A map showing 2023 F1 circuits with dots representing the winning constructor and driver at each race",
+  "description": "A map showing 2023 F1 circuits with dots representing the winning constructor and driver at each race, with an annotation for Singapore and an interactive legend.",
   "width": 800,
   "height": 500,
   "layer": [
@@ -112,21 +111,14 @@
           "filter": "datum.year == 2023"
         }
       ],
-      "mark": "circle",
       "selection": {
         "constructor_highlight": {
           "type": "multi",
           "fields": ["winner_constructor"],
-          "bind": "legend",
-          "on": "click"
-        },
-        "constructor_click": {
-          "type": "multi",
-          "fields": ["winner_constructor"],
-          "on": "click",
-          "clear": "click"
+          "bind": "legend"
         }
       },
+      "mark": "circle",
       "encoding": {
         "longitude": {"field": "lng", "type": "quantitative"},
         "latitude": {"field": "lat", "type": "quantitative"},
@@ -139,14 +131,11 @@
           },
           "title": "Winning Constructor"
         },
+        "size": {"value": 100},
         "opacity": {
-          "condition": {
-            "test": "datum.winner_constructor === 'Ferrari' || datum.winner_constructor === 'Red Bull'",
-            "value": 1
-          },
+          "condition": {"selection": "constructor_highlight", "value": 1},
           "value": 0.2
         },
-        "size": {"value": 100},
         "tooltip": [
           {"field": "name", "type": "nominal", "title": "Circuit"},
           {"field": "country", "type": "nominal", "title": "Country"},
@@ -154,6 +143,34 @@
           {"field": "winner_constructor", "type": "nominal", "title": "Winning Constructor"}
         ]
       }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "longitude": 103.851959,
+            "latitude": 1.290270,
+            "text": "Only race Red Bull did not win"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 5,
+        "dy": -10,
+        "fontSize": 12
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "text"},
+        "color": {"value": "black"}
+      }
     }
-  ]
+  ],
+  "projection": {
+    "type": "equalEarth"
+  }
 }

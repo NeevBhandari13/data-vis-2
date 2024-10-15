@@ -1,6 +1,5 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Driver Finishes in 2023 Season",
     "data": {
       "url": "data/results.csv",
       "format": {
@@ -77,7 +76,7 @@
       },
       "tooltip": [
         {"field": "finishPosition", "type": "nominal", "title": "Position"},
-        {"field": "count", "type": "quantitative", "title": "Count"}
+        {"field": "count", "type": "quantitative", "title": "Number of Finishes"}
       ]
     }
   }
