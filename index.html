@@ -15,7 +15,6 @@
     
     <!-- Custom styles -->
     <style>
-        /* Import the Formula 1 font */
         @font-face {
             font-family: 'Formula1';
             src: url('fonts/Formula1-Regular.ttf') format('truetype');
@@ -39,36 +38,35 @@
 
         h1 {
             text-align: center;
-            font-family: 'Formula1', sans-serif; /* Apply Formula1 font to the first title */
-            font-size: 48px; /* Larger font size */
+            font-family: 'Formula1', sans-serif;  
+            font-size: 48px; 
             color: red;
         }
 
         h2 {
             text-align: center;
-            font-family: 'Formula1', sans-serif; /* Apply Formula1 font to the first title */
-            font-size: 24px; /* Larger font size */
+            font-family: 'Formula1', sans-serif; 
+            font-size: 24px; 
             color: red;
         }
 
         .vis-container {
             display: flex;
-            justify-content: center;  /* Center visualizations horizontally */
-            align-items: center;     /* Center visualizations vertically */
+            justify-content: center;  
+            align-items: center;     
             margin-bottom: 40px;
         }
 
-        /* Ensure the visualizations fit within the container */
         .vis-container > div {
             max-width: 100%;
-            width: 800px; /* Set width for visualizations */
+            width: 800px; 
             max-height: 600px;
         }
 
         .vis-short {
             max-width: 100%;
             width: 800px; 
-            max-height: 400px; /* Shorter height for pie and bar charts */
+            max-height: 400px;
         }
 
         .description {
@@ -86,9 +84,9 @@
         .section-bubble {
             margin: 30px 0;
             padding: 20px;
-            background-color: #f8f8f8; /* Light orange background */
-            border: 1px solid #e0d6c3; /* Slightly darker border */
-            border-radius: 10px; /* Rounded corners */
+            background-color: #f8f8f8; 
+            border: 1px solid #e0d6c3; 
+            border-radius: 10px; 
             box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
         }
 
@@ -104,7 +102,7 @@
         hr {
             border: none;
             border-top: 1px solid #d3d3d3;
-            margin: 30px 0; /* Add space around the horizontal rule */
+            margin: 30px 0; 
         }
 
         @media only screen and (max-width: 768px) {
@@ -114,7 +112,7 @@
             }
 
             .vis-container > div {
-                width: 100%;  /* Make visualizations responsive for smaller screens */
+                width: 100%;  
             }
 
             .vis-short {
